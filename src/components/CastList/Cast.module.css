@@ -1,0 +1,17 @@
+.cast_list {
+  padding-left: 10px;
+}
+.item_cast_list {
+  list-style: none;
+}
+.cast_img {
+  width: 200px;
+  border-radius: 10px;
+}
+.name {
+  font-size: 20px;
+}
+
+.chsracter {
+  font-size: 20px;
+}
