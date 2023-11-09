@@ -5,19 +5,25 @@ import { Link, useLocation } from 'react-router-dom';
 import css from './Movies.module.css';
 const Movies = () => {
   const [findedFilms, setFindedFilms] = useState(null);
+  const [error, setError] = useState(null);
 
   const hendlerSubmitForm = e => {
     e.preventDefault();
     const query = e.currentTarget.elements.film_name.value;
-    getMovieQuery(query).then(response => {
-      setFindedFilms(response);
-      console.log(response);
-    });
+    getMovieQuery(query)
+      .then(response => {
+        setFindedFilms(response);
+        console.log(response);
+      })
+      .catch(err => {
+        setError(err);
+      });
   };
   const location = useLocation();
   const backLinkRef = useRef(location.state?.from ?? '/');
   return (
     <section>
+      {error && <p>{error.message}</p>}
       <div className={css.form_filed}>
         <Link className={css.back_link} to={backLinkRef.current}>
           Go back

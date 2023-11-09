@@ -6,13 +6,19 @@ console.log(trendingFilmArr);
 
 const Home = () => {
   const [movies, setMovies] = useState(null);
+  const [error, setError] = useState(null);
   useEffect(() => {
-    getTrending().then(response => {
-      setMovies(response);
-    });
+    getTrending()
+      .then(response => {
+        setMovies(response);
+      })
+      .catch(err => {
+        setError(err);
+      });
   }, []);
   return (
     <section className="home_section">
+      {error&&<p>{error.message}</p>}
       {movies !== null && <FilmList movies={movies} />}
     </section>
   );

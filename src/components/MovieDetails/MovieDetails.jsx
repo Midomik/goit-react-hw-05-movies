@@ -1,23 +1,29 @@
 import { Link, useLocation, useParams, Outlet } from 'react-router-dom';
 import { getFilm } from 'fetchData';
-import { useEffect, useRef, useState } from 'react';
+import { Suspense, useEffect, useRef, useState } from 'react';
 import css from './MoveDetails.module.css';
 
 const MovieDetails = ({ children }) => {
   const { postId } = useParams();
   console.log(postId);
   const [selectFilm, setSelectFilm] = useState('');
+  const [error, setError] = useState(null);
   const location = useLocation();
   const backLinkRef = useRef(location.state?.from ?? '/');
   useEffect(() => {
-    getFilm(postId).then(response => {
-      setSelectFilm(response);
-      console.log(response);
-    });
+    getFilm(postId)
+      .then(response => {
+        setSelectFilm(response);
+        console.log(response);
+      })
+      .catch(err => {
+        setError(err);
+      });
   }, [postId]);
 
   return (
     <section>
+      {error && <p>{error.message}</p>}
       <Link className={css.back_link} to={backLinkRef.current}>
         Go back
       </Link>
@@ -47,16 +53,26 @@ const MovieDetails = ({ children }) => {
         </div>
       </div>
       <div className={css.additional_information_container}>
-        <Link className={css.cast_link} to={`/movies/${postId}/cast`}>
+        <Link
+          state={{ from: backLinkRef }}
+          className={css.cast_link}
+          to={`/movies/${postId}/cast`}
+        >
           Cast
         </Link>
-        <Link className={css.reviews_link} to={`/movies/${postId}/reviews`}>
+        <Link
+          state={{ from: backLinkRef }}
+          className={css.reviews_link}
+          to={`/movies/${postId}/reviews`}
+        >
           Reviews
         </Link>
       </div>
-      <div>
-        <Outlet />
-      </div>
+      <Suspense>
+        <div>
+          <Outlet />
+        </div>
+      </Suspense>
     </section>
   );
 };
