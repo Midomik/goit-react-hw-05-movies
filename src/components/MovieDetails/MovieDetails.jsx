@@ -1,17 +1,7 @@
-import {
-  Link,
-  Route,
-  Routes,
-  useLocation,
-  useParams,
-  Switch,
-  Outlet,
-} from 'react-router-dom';
+import { Link, useLocation, useParams, Outlet } from 'react-router-dom';
 import { getFilm } from 'fetchData';
 import { useEffect, useRef, useState } from 'react';
 import css from './MoveDetails.module.css';
-import { Cast } from 'pages/Cast/Cast';
-import { Reviews } from 'pages/Reviews/Reviews';
 
 const MovieDetails = ({ children }) => {
   const { postId } = useParams();
