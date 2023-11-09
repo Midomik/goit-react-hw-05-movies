@@ -1,0 +1,1 @@
+{"version":3,"file":"static/css/708.ef2ed951.chunk.css","mappings":"AAAA,2BACE,YACF,CAEA,gCACE,iBACF,CAEA,2BACE,cACF","sources":["components/FilmList/FilmList.module.css"],"sourcesContent":[".film_list {\n  padding: 10px;\n}\n\n.item_list_film {\n  margin-bottom: 8px;\n}\n\n.link_item {\n  font-size: 20px;\n}\n"],"names":[],"sourceRoot":""}
